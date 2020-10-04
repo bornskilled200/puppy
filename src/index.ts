@@ -51,23 +51,17 @@ function updatePlayer() {
 
 let tick = Date.now();
 function updatePuppy() {
-  const accel = Math.floor((Date.now()-tick)/2000) * .01 + 0.4;
-  if (puppy.pos.x < player.pos.x) {
-    puppy.vel.x += accel;
-  } else {
-    puppy.vel.x -= accel;
-  }
-  if (puppy.pos.y < player.pos.y) {
-    puppy.vel.y += accel;
-  } else {
-    puppy.vel.y -= accel;
-  }
+  const accel = Math.floor((Date.now()-tick)/1000) * .001 + 0.3;
+  puppy.vel.x += Math.sign(player.pos.x - puppy.pos.x) * accel;
+  puppy.vel.y += Math.sign(player.pos.y - puppy.pos.y) * accel;
+
   if (Math.abs(puppy.vel.x) > 10) {
     puppy.vel.x = 10 * Math.sign(puppy.vel.x);
   }
   if (Math.abs(puppy.vel.y) > 10) {
     puppy.vel.y = 10 * Math.sign(puppy.vel.y);
   }
+  
   puppy.pos.x += puppy.vel.x;
   puppy.pos.y += puppy.vel.y;
 }
